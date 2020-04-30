@@ -36,7 +36,7 @@ namespace SalesWithLinq.Forms
 
         public virtual void GetData()
         {
-            MessageBox.Show("تم جلب البيانات بنجاح  ");
+           // MessageBox.Show("تم جلب البيانات بنجاح  ");
 
         }
 

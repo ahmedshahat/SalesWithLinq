@@ -16,6 +16,7 @@ namespace SalesWithLinq.Forms
         public frm_Drawer()
         {
             InitializeComponent();
+            New();
            
         }
 
@@ -29,6 +30,7 @@ namespace SalesWithLinq.Forms
         {
             Txt_Name.Text = drawer.TreasyryName; 
             base.GetData();
+        
         }
 
         public override void Save()
@@ -44,24 +46,34 @@ namespace SalesWithLinq.Forms
             DAL.Account account;
             if (drawer.TreasyryID == 0)
             {
-                
+                account = new DAL.Account();
+
                 db.Drawers.InsertOnSubmit(drawer);
+                db.Accounts.InsertOnSubmit(account);
 
             }
             else
             {
                 db.Drawers.Attach(drawer);
+                account = db.Accounts.Single(s => s.ID == drawer.AcoountID);
 
             }
-               
-      
-                
-
             SetData();
-            db.SubmitChanges(); 
+            account.Name = drawer.TreasyryName;
+            db.SubmitChanges();
+            drawer.AcoountID = account.ID;
+            db.SubmitChanges();
+
+
             base.Save();
         }
-    private void frm_Drawer_Load(object sender, EventArgs e)
+
+        public override void SetData()
+        {
+            drawer.TreasyryName = Txt_Name.Text;
+            base.SetData();
+        }
+        private void frm_Drawer_Load(object sender, EventArgs e)
         {
             
 
